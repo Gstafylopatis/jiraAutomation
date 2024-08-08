@@ -1,11 +1,14 @@
 import config
 from app.main import bp
-import os
+import app.jira as Jira
+from jira import Issue
 
 
 @bp.route('/')
 def index():
-    JIRA_USERNAME = os.getenv("JIRA_USERNAME")
-    JIRA_PASSWORD = os.getenv("PASSWORD")
-
-    return f"<h1>{JIRA_USERNAME}</h1>"
+    client = Jira.create_jira_client()
+    issue: Issue = client.getIssue("TPGSOC-499056")
+    print(dict(issue.raw))
+    resolution = issue.fields.resolution.description
+    print(resolution)
+    return f"<h1>{resolution}</h1>"
