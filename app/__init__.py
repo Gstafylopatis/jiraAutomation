@@ -12,6 +12,9 @@ def create_app():
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
 
+    from app.jira import bp as jira_bp
+    app.register_blueprint(jira_bp)
+
     @app.route('/test/')
     def test_page():
         return '<h1>Testing the Flask Application Factory Pattern</h1>'
